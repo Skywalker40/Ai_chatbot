@@ -3,6 +3,11 @@ import requests
 from bs4 import BeautifulSoup
 from openai import OpenAI
 import re
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  
+
 
 # -------------------- APP SETUP --------------------
 app = Flask(__name__, template_folder="templates")
@@ -26,9 +31,10 @@ if len(clean_text) > MAX_CHARS:
     clean_text = clean_text[:MAX_CHARS] + " ...[TRUNCATED]..."
 
 # -------------------- MODEL CONFIG --------------------
+API_KEY = os.getenv("API_KEY")
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"  # 🔐 move to env variable later
+    api_key=API_KEY  # 🔐 move to env variable later
 )
 
 SYSTEM_PROMPT = (
