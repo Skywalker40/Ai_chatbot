@@ -14,10 +14,16 @@ app = Flask(__name__, template_folder="templates")
 
 # -------------------- SCRAPE WEBSITE ONCE --------------------
 URL = "https://en.wikipedia.org/wiki/India"
-MAX_CHARS = 15000
+MAX_CHARS = 500000
 
-response = requests.get(URL, timeout=15)
+headers = {
+    "User-Agent": "Mozilla/5.0 (Educational Chatbot Project)"
+}
+
+response = requests.get(URL, headers=headers, timeout=15)
 response.raise_for_status()
+
+
 
 soup = BeautifulSoup(response.text, "html.parser")
 for tag in soup(["script", "style", "noscript", "header", "footer", "nav", "aside"]):
@@ -42,11 +48,11 @@ SYSTEM_PROMPT = (
     "1) You MUST only use the WEBSITE CONTENT provided in the user message to answer.\n"
     "2) If the website contains a clear answer, provide a short paragraph summarizing that information.\n"
     "3) If the website mentions an OPTION or feature exists but provides NO details, reply EXACTLY:\n"
-    "   contact computervally for further information\n"
+    "   There is no suffecient infurmation about topic  you ask  \n"
     "4) If limited info exists, answer and append exactly:\n"
-    "   If you want to get more information please contact computervally it solution\n"
+    "   I only have limeted information about this topic . \n"
     "5) If NO relevant answer exists, reply EXACTLY:\n"
-    "   contact computervally it solution\n"
+    "   There is no suffecient infurmation about topic  you ask . please ask anything about india . i am ready to help you about any question you have about india . Thank you \n"
     "6) Do NOT guess or invent information.\n"
 )
 
