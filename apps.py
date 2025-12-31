@@ -13,7 +13,7 @@ load_dotenv()
 app = Flask(__name__, template_folder="templates")
 
 # -------------------- SCRAPE WEBSITE ONCE --------------------
-URL = "https://computervalleyit.com/about-us"
+URL = "https://en.wikipedia.org/wiki/India"
 MAX_CHARS = 15000
 
 response = requests.get(URL, timeout=15)
